@@ -24,6 +24,7 @@ router.get("/data", async (req, res) => {
   }
 });
 
+
 router.get('/userList', async(req,res)=>{
   try{
     const data =  await userController.getUsersList(req);

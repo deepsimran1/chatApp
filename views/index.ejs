@@ -17,7 +17,7 @@
            <th>Image</th>
            <th>User Id</th>
            <th>User Name</th>
-           
+           <th colspan="2">Status</th>
          </tr>
        </thead>
        <tbody>
@@ -29,10 +29,10 @@
            <td><img src="http://localhost:4001/<%= user.image %>" alt="<%= user.image %>" style="max-width: 100px; max-height: 100px;"></td>
            <td><%= user.userId %></td>
            <td><%= user.userName %></td>
-           
+           <td><a href="" style="text-decoration: none;">Edit</a></td>
+           <td><a href="" style="text-decoration: none;">Delete</a></td>
          </tr>
          <% }); %>
-         
        </tbody>
      </table>
    </div>   

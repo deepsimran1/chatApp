@@ -31,5 +31,6 @@ router.get('/getGroupDetails', groupController.getGroupDetails);
 router.post('/updateGroupPrivacy', groupController.updateGroupPrivacy);
 router.post('/promoteMemberToAdmin', groupController.promoteMemberToAdmin);
 router.post('/demoteAdminToMember', groupController.demoteAdminToMember);
+//common routes ,,admin
 router.get('/getAllUsers', userController.getAllUsers);
 module.exports = router;

@@ -94,13 +94,14 @@ userLogin: async (req, res) => {
         },
       ]);
 
-      res.status(200).json({ users });
+      // res.status(200).json({ users });
       return users;
     } catch (error) {
       console.error(error);
       throw error;
     }
   },
+
 };
 
 module.exports = userController;

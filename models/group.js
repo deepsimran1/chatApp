@@ -21,8 +21,16 @@ const groupSchema = new mongoose.Schema({
             type:mongoose.Schema.Types.ObjectId,
             ref:'GroupMessage'
         }
-    ]
-},{timestamps:true});
+    ],
+    privacy:{
+        type:String,
+        default:'public',
+    },
+    createdBy:{
+        type:String
+    }
+}
+,{timestamps:true});
 
 const Group = mongoose.model('Group', groupSchema);
 

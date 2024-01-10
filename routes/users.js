@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage});
 
 //user routes
-router.post('/login',userController.userLogin);
+router.post('/login', userController.userLogin);
 router.post('/signup',upload.single('image'),userController.userSignup);
 router.get('/getUsersList',userController.getUsersList);
 //message routes
@@ -28,4 +28,8 @@ router.post('/createGroup', groupController.createGroup);
 router.post('/sendgroupMessage', groupController.sendMessage);
 router.get('/getGroupMessages',groupController.getGroupMessages);
 router.get('/getGroupDetails', groupController.getGroupDetails);
+router.post('/updateGroupPrivacy', groupController.updateGroupPrivacy);
+router.post('/promoteMemberToAdmin', groupController.promoteMemberToAdmin);
+router.post('/demoteAdminToMember', groupController.demoteAdminToMember);
+router.get('/getAllUsers', userController.getAllUsers);
 module.exports = router;

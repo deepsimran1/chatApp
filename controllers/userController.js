@@ -101,6 +101,26 @@ userLogin: async (req, res) => {
       throw error;
     }
   },
+  editUser:async(req,res, userId)=>{
+    try{
+      const {userId, userName}= req.body;
+      const image = req.file;
+
+      const user = await User.findOne({userId});
+      if(!user){
+        return res.status(404).json({success:false, message:"user not found"});
+      }
+
+      user.userName = userName || user.userName;
+      user.userId = userId || user.userId;
+      user.image = image ? image.path :user.image;
+
+      await user.save();
+    }catch(error){
+      console.error(error);
+      throw error;
+    }
+  }
 
 };
 

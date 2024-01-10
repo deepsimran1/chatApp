@@ -33,4 +33,5 @@ router.post('/promoteMemberToAdmin', groupController.promoteMemberToAdmin);
 router.post('/demoteAdminToMember', groupController.demoteAdminToMember);
 //common routes ,,admin
 router.get('/getAllUsers', userController.getAllUsers);
+router.put('/editUser', userController.editUser);
 module.exports = router;

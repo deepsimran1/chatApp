@@ -26,10 +26,11 @@
            
            
            <td><%= index + 1 %></td>
-           <td><img src="http://localhost:4001/<%= user.image %>" alt="<%= user.image %>" style="max-width: 100px; max-height: 100px;"></td>
+           <td><img src="<%= user.image %>" alt="<%= user.image %>" style="max-width: 100px; max-height: 100px;"></td>
            <td><%= user.userId %></td>
            <td><%= user.userName %></td>
-           <td><a href="" style="text-decoration: none;">Edit</a></td>
+           <td><a href="/edit/<%= user.userId %>" style="text-decoration: none;">Edit</a>
+           </td>
            <td><a href="" style="text-decoration: none;">Delete</a></td>
          </tr>
          <% }); %>

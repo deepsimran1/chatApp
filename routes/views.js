@@ -3,6 +3,7 @@ const router = express.Router();
 const userController = require("../controllers/userController");
 
 const multer = require("multer");
+const User = require("../models/user");
 const upload = multer({ dest: "uploads/" }); 
 
 router.use(express.urlencoded({ extended: true }));
@@ -84,6 +85,29 @@ router.post("/login", async(req,res)=> {
     res.status(500).json({error: 'Internal Server Error', details:error.message});
   }
 });
+
+router.get('/edit/:userId', async(req,res)=>{
+  try{
+    const userId = req.params.userId;
+    const user = await User.findOne({userId});
+    console.log("user", user);
+    res.render('edit', {user});
+  }catch(error){
+    console.error(error);
+    res.status(500).json({error: 'Internal Server Error', details:error.message});
+  }
+});
+
+router.post('/edit/:userId', upload.single('image'), async(req,res)=>{
+  try{
+    const userId = req.params.userId;
+    await userController.editUser(req,res,userId);
+    res.redirect('/data');
+  }catch(error){
+    console.error(error);
+    res.status(500).json({error: 'Internal Server Error', details:error.message});
+  }
+})
 
 
 module.exports = router;

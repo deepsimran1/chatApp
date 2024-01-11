@@ -4,7 +4,29 @@ const userController = require("../controllers/userController");
 
 const multer = require("multer");
 const User = require("../models/user");
-const upload = multer({ dest: "uploads/" }); 
+
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb){
+      cb(null, './uploads');
+  },
+  filename: function (req, file, cb){
+      cb(null, Date.now() + '-' + file.originalname);
+  },
+});
+
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith('image/')) {
+      cb(null, true);
+  } else {
+      cb(new Error('Invalid file type. Only images are allowed.'));
+  }
+};
+
+
+
+const upload = multer({storage, fileFilter});
+
 
 router.use(express.urlencoded({ extended: true }));
 router.use(express.json());
@@ -95,6 +117,7 @@ router.get('/edit/:userId', async(req,res)=>{
   }catch(error){
     console.error(error);
     res.status(500).json({error: 'Internal Server Error', details:error.message});
+    
   }
 });
 
@@ -103,6 +126,8 @@ router.post('/edit/:userId', upload.single('image'), async(req,res)=>{
     const userId = req.params.userId;
     await userController.editUser(req,res,userId);
     res.redirect('/data');
+    // res.status(200).json({ success: true, message: "User details updated successfully" });
+
   }catch(error){
     console.error(error);
     res.status(500).json({error: 'Internal Server Error', details:error.message});
@@ -111,3 +136,6 @@ router.post('/edit/:userId', upload.single('image'), async(req,res)=>{
 
 
 module.exports = router;
+
+
+//e7f82f23c117d9e8d2b63fe6067ab284

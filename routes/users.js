@@ -9,11 +9,22 @@ const storage = multer.diskStorage({
     destination: function (req, file, cb){
         cb(null, './uploads');
     },
-    filename: function (req, file, cb){
+    filename: function(req, file, cb){
         cb(null, Date.now() + '-' + file.originalname);
     },
 });
-const upload = multer({ storage: storage});
+
+const fileFilter = (req, file, cb) => {
+    if (file.mimetype.startsWith('image/')) {
+        cb(null, true);
+    } else {
+        cb(new Error('Invalid file type. Only images are allowed.'));
+    }
+};
+
+
+
+const upload = multer({storage, fileFilter});
 
 //user routes
 router.post('/login', userController.userLogin);
@@ -33,5 +44,5 @@ router.post('/promoteMemberToAdmin', groupController.promoteMemberToAdmin);
 router.post('/demoteAdminToMember', groupController.demoteAdminToMember);
 //common routes ,,admin
 router.get('/getAllUsers', userController.getAllUsers);
-router.put('/editUser', userController.editUser);
+router.put('/editUser/:uderId',upload.single("image"), userController.editUser);
 module.exports = router;
